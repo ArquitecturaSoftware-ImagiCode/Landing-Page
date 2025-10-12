@@ -1,0 +1,27 @@
+<main class="h-screen grid grid-cols-2">
+  <!-- LADO IZQUIERDO (ESTÁTICO) -->
+  <div class="bg-auth relative h-screen">
+    <div
+      class="absolute inset-0 px-10 py-15 bg-gradient-to-b from-transparent to-black/50 flex flex-col justify-between"
+    >
+      <div>
+        <img src="/logo2.svg" alt="Logo" />
+      </div>
+      <div>
+        <p class="text-white font-semibold text-xl">
+          “This software simplifies the website building process, making it a breeze to manage our
+          online presence.”
+        </p>
+        <p class="text-white font-semibold text-xl mt-5">David Handerson</p>
+        <p class="text-white/70 font-medium text-md">Ceo, Fundador</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO (SCROLLABLE) -->
+  <div class="h-screen overflow-y-auto flex items-center justify-center bg-white">
+    <div class="w-full max-w-md p-8">
+      <clerk-sign-up></clerk-sign-up>
+    </div>
+  </div>
+</main>
