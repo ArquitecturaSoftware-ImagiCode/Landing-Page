@@ -1,0 +1,239 @@
+<main class="px-7 py-5">
+  <h1 class="text-3xl font-semibold">Dashboard</h1>
+
+  <div class="grid grid-cols-3 mt-5 gap-5">
+    <div class="bg-white p-3 rounded-md">
+      <h3 class="text-lg font-semibold">Estado Plaza</h3>
+
+      <ng-container *ngIf="organization; else cargando">
+        <div
+          *ngIf="organization.isActive; else inactiva"
+          role="alert"
+          class="alert alert-success alert-soft mt-2"
+        >
+          <lucide-angular [img]="CheckIcon" class="my-icon size-5"></lucide-angular>
+          <span>✅ Plaza Activa. ¡Gracias por tu pago!</span>
+        </div>
+
+        <ng-template #inactiva>
+          <div role="alert" class="alert alert-error alert-soft mt-2">
+            <lucide-angular [img]="Alert" class="my-icon size-5"></lucide-angular>
+            <span>⚠️ Plaza Inactiva. Por favor realizar el pago.</span>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #cargando>
+        <p class="text-gray-400 mt-3">Cargando estado de la plaza...</p>
+      </ng-template>
+    </div>
+
+    <div class="stats col-span-2 bg-white shadow w-full">
+      <div class="stat">
+        <div class="stat-figure text-orange-500">
+          <lucide-angular [img]="HeartIcon" class="my-icon size-8"></lucide-angular>
+        </div>
+        <div class="stat-title">Pagos Registrados</div>
+        <div class="stat-value text-orange-500">25.6K</div>
+        <div class="stat-desc">21% mas que el mes pasado</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="inline-block h-8 w-8 stroke-current"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            ></path>
+          </svg>
+        </div>
+        <div class="stat-title">Usuario Activos</div>
+        <div class="stat-value text-secondary">88</div>
+        <div class="stat-desc">21% mas que el mes pasado</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          <div class="avatar avatar-online">
+            <div class="w-16 rounded-full">
+              <img src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" />
+            </div>
+          </div>
+        </div>
+        <div class="stat-value">86%</div>
+        <div class="stat-title">Tasks done</div>
+        <div class="stat-desc text-secondary">31 tasks remaining</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto bg-white rounded-lg mt-5">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <th>Name</th>
+          <th>Job</th>
+          <th>Favorite Color</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Hart Hagerty</div>
+                <div class="text-sm opacity-50">United States</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Zemlak, Daniel and Leannon
+            <br />
+            <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+          </td>
+          <td>Purple</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">details</button>
+          </th>
+        </tr>
+        <!-- row 2 -->
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Brice Swyre</div>
+                <div class="text-sm opacity-50">China</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Carroll Group
+            <br />
+            <span class="badge badge-ghost badge-sm">Tax Accountant</span>
+          </td>
+          <td>Red</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">details</button>
+          </th>
+        </tr>
+        <!-- row 3 -->
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Marjy Ferencz</div>
+                <div class="text-sm opacity-50">Russia</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Rowe-Schoen
+            <br />
+            <span class="badge badge-ghost badge-sm">Office Assistant I</span>
+          </td>
+          <td>Crimson</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">details</button>
+          </th>
+        </tr>
+        <!-- row 4 -->
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Yancy Tear</div>
+                <div class="text-sm opacity-50">Brazil</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            Wyman-Ledner
+            <br />
+            <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+          </td>
+          <td>Indigo</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">details</button>
+          </th>
+        </tr>
+      </tbody>
+      <!-- foot -->
+      <tfoot>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Job</th>
+          <th>Favorite Color</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</main>

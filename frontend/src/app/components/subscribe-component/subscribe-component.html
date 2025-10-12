@@ -1,0 +1,13 @@
+<div class="p-5">
+  <h2 class="text-xl mb-4 font-semibold">Planes disponibles</h2>
+  <div *ngFor="let product of products" class="border rounded p-4 mb-4">
+    <h3 class="text-lg font-medium">{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <button
+      class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+      (click)="subscribe(product.default_price.id)"
+    >
+      Suscribirse
+    </button>
+  </div>
+</div>

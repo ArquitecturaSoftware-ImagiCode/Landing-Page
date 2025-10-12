@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --color-primary: #0f604D; /* azul personalizado */
+
+}
+
+.contenedor {
+  max-width: 1400px;        /* ancho máximo */
+  margin: 0 auto;           /* centra el contenedor en la página */
+  width: 90%;
+}
+
+.bg-img{
+  background-image: url("/bg1.webp"); /* Ruta de la imagen */
+  background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+}
+
+.bg-img2{
+  background-image: url("/bg2.webp"); /* Ruta de la imagen */
+  background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+}
+
+.bg-auth{
+  background-image: url("/login.webp"); /* Ruta de la imagen */
+  background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+}
+
+
+body {
+	font-family: 'Outfit', sans-serif;
+}

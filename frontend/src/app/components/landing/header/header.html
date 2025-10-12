@@ -1,0 +1,68 @@
+<div class="bg-img">
+  <div class="contenedor">
+    <div class="fixed top-0 left-0 w-full z-50 border-b border-b-gray-200">
+      <nav class="contenedor flex items-center justify-between py-4">
+        <div class="flex items-center gap-3">
+          <img src="/logo2.svg" alt="Logo" />
+          <h1 class="text-3xl font-bold">AgoraSoft</h1>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a routerLink="/register">
+            <button class="btn bg-transparent text-green-900 border-green-900">
+              Registrar Plaza
+            </button>
+          </a>
+          <a routerLink="/login">
+            <button class="btn bg-green-900 text-white">Iniciar Sesion</button>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="grid py-10 pt-15 grid-cols-7 justify-items-center">
+      <div class="py-20 flex flex-col gap-5 col-span-4">
+        <div
+          class="flex items-center gap-2 bg-green-900/10 w-fit px-4 py-2 rounded-full border border-gray-400"
+        >
+          <lucide-angular [img]="StarIcon" class="my-icon text-green-900"></lucide-angular>
+          <h4 class="text-green-900 text-xl font-semibold">Impulsando la gestion de plazas</h4>
+        </div>
+
+        <div>
+          <h1 class="text-6xl font-semibold leading-20">Construye mejor Construye mas rapido</h1>
+          <p class="text-gray-500 mt-7">
+            Impulsa tu negocio con soluciones de nueva generación que optimizan, <br />
+            conectan y aceleran tu crecimiento.
+          </p>
+          <div
+            class="mt-4 flex justify-between border border-gray-200 rounded-lg bg-white w-3/4 p-2 items-center gap-2"
+          >
+            <input class="input border-none" placeholder="Inscribe tu email" type="text" />
+            <button class="btn bg-green-900 text-white text-normal">Solicitar Demo</button>
+          </div>
+          <div class="flex items-center mt-7">
+            <div class="flex items-center gap-5">
+              <img src="/users.webp" alt="" />
+              <div>
+                <h3 class="text-2xl font-semibold">25k</h3>
+                <p class="text-xl text-gray-500">Clientes que confian</p>
+              </div>
+            </div>
+            <div class="flex items-center ml-10 pl-10 border-l-4 border-l-green-900 gap-5">
+              <img src="/star.svg" alt="" />
+              <div>
+                <h3 class="text-2xl font-semibold">4.5/5</h3>
+                <p class="text-xl text-gray-500">10k Reseñas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-span-3 flex justify-between items-center">
+        <img class="" src="/element1.webp" alt="" />
+      </div>
+    </div>
+  </div>
+</div>

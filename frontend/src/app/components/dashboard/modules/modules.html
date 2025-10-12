@@ -1,0 +1,75 @@
+<main class="px-7 py-5">
+  <div class="flex justify-between">
+    <!-- Open the modal using ID.showModal() method -->
+    <h1 class="text-3xl font-semibold">Modules</h1>
+
+    <div>
+      <button class="btn bg-orange-600 text-white" onclick="my_modal_1.showModal()">
+        <lucide-angular [img]="PlusIcon" class="my-icon size-5"></lucide-angular>
+        Agregar Modulo
+      </button>
+      <dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+          <h3 class="text-lg font-bold">Agregar Modulo</h3>
+          <p class="py-4">Ingresa el rol el cual quieres ingresar en tu sistema</p>
+          <form action="">
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">Rol/Modulo</legend>
+              <select class="select w-full">
+                <option disabled selected>Escoge el rol</option>
+                <option>Crimson</option>
+                <option>Amber</option>
+                <option>Velvet</option>
+              </select>
+            </fieldset>
+
+            <div class="flex justify-end mt-3 gap-2">
+              <button class="btn bg-orange-400 text-white">Añadir Rol</button>
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+              </form>
+            </div>
+          </form>
+        </div>
+      </dialog>
+    </div>
+  </div>
+
+  <div class="mt-5 overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr>
+          <th>1</th>
+          <td>Cy Ganderton</td>
+          <td>Quality Control Specialist</td>
+          <td>Blue</td>
+        </tr>
+        <!-- row 2 -->
+        <tr>
+          <th>2</th>
+          <td>Hart Hagerty</td>
+          <td>Desktop Support Technician</td>
+          <td>Purple</td>
+        </tr>
+        <!-- row 3 -->
+        <tr>
+          <th>3</th>
+          <td>Brice Swyre</td>
+          <td>Tax Accountant</td>
+          <td>Red</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

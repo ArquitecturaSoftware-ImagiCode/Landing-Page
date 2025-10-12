@@ -1,0 +1,40 @@
+<div class="bg-gray-100 min-h-screen">
+  <div class="sm:w-64 hidden sm:block fixed">
+    <div class="p-5 bg-white shadow-sm h-screen flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-3 border-b border-b-gray-200 pb-5">
+          <img src="/logo2.svg" alt="Logo" />
+          <h1 class="text-3xl font-bold">AgoraSoft</h1>
+        </div>
+        <div class="flex flex-col gap-4 mt-5">
+          <a class="bg-orange-500 text-white items-center p-3 rounded-lg flex gap-2" routerLink="/admin/dashboard">
+            <lucide-angular [img]="DashboardIcon" class="my-icon size-5"></lucide-angular>
+            Dashboard
+          </a>
+
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/modules">
+            <lucide-angular [img]="UserIcon" class="my-icon size-5"></lucide-angular>
+            Modulos
+          </a>
+
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/users">
+            <lucide-angular [img]="UsersIcon" class="my-icon size-5"></lucide-angular>
+            Usuarios
+          </a>
+
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/payments">
+            <lucide-angular [img]="MoneyIcon" class="my-icon size-5"></lucide-angular>
+            Planes
+          </a>
+        </div>
+      </div>
+              <app-user-button></app-user-button>
+
+    </div>
+  </div>
+  <div class="sm:ml-64">
+  <router-outlet></router-outlet>
+
+  </div>
+
+</div>
