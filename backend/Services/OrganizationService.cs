@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
-    public class OrganizationService
+    public class OrganizationService: IOrganizationService
     {
         private readonly AppDbContext _db;
 

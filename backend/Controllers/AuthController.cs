@@ -12,9 +12,9 @@ namespace backend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private readonly OrganizationService _orgService;
+        private readonly IOrganizationService _orgService;
 
-        public AuthController(AppDbContext db, OrganizationService orgService)
+        public AuthController(AppDbContext db, IOrganizationService orgService)
         {
             _db = db;
             _orgService = orgService;
