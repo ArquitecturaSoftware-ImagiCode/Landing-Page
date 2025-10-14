@@ -20,6 +20,20 @@
   background-repeat: no-repeat; /* Evita que se repita */
 }
 
+.bg-integration{
+  background-image: url("/bg-integration.webp"); /* Ruta de la imagen */
+  background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+}
+
+.bg-footer{
+  background-image: url("/footer.webp"); /* Ruta de la imagen */
+  background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que se repita */
+}
+
 .bg-img2{
   background-image: url("/bg2.webp"); /* Ruta de la imagen */
   background-size: cover;   /* Hace que la imagen cubra todo el contenedor */
