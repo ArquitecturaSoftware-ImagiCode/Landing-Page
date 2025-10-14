@@ -6,3 +6,9 @@ appsettings.*.json
 
 **/bin/
 **/obj/
+
+# Archivos compilados
+*.dll
+*.exe
+*.pdb
+*.cache
