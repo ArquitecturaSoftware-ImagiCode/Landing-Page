@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/0SsEgHo+jU=",
+  "dgSpecHash": "ZJYCBCsRmmk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\fernando.velez\\Desktop\\Development\\agorasaas\\backend\\backend.csproj",
+  "projectFilePath": "C:\\Users\\fernando.velez\\Desktop\\Development\\agorasaasfinal\\Landing-Page\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fernando.velez\\.nuget\\packages\\clerk.backendapi\\0.13.0\\clerk.backendapi.0.13.0.nupkg.sha512",
     "C:\\Users\\fernando.velez\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
