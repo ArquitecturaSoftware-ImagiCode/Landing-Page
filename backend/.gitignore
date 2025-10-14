@@ -3,3 +3,13 @@ appsettings.json
 appsettings.*.json
 !appsettings.*.example.json
 !appsettings.template.json
+
+# Carpetas de compilación y temporales de .NET
+**/bin/
+**/obj/
+
+# Archivos compilados
+*.dll
+*.exe
+*.pdb
+*.cache
