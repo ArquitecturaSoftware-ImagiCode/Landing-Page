@@ -10,7 +10,7 @@ services:
       - "5165:5165"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=AgoraSoft;Username=postgres;Password=admin
+      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=AgoraSoft;Username=postgres;Password=contrasena
     networks:
       - app-network
 
