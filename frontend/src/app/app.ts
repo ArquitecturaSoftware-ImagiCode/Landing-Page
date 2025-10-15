@@ -1,8 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, OnDestroy } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ClerkService } from 'ngx-clerk';
 import { AuthService, RegisterRequest } from './services/auth.service';
-import { take } from 'rxjs/operators';
+import { Subscription, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,10 @@ import { take } from 'rxjs/operators';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnInit {
+export class App implements OnInit, OnDestroy {
   protected readonly title = signal('frontend');
+  private subscriptions: Subscription[] = [];
+  private isRegistering = false; // 🔒 Flag para evitar llamadas repetidas
 
   constructor(
     private _clerk: ClerkService,
@@ -26,51 +28,63 @@ export class App implements OnInit {
   }
 
   ngOnInit() {
-    // Espera solo una vez al usuario autenticado
-    this._clerk.user$.pipe(take(1)).subscribe(async (user) => {
+    const combinedSub = combineLatest([
+      this._clerk.user$,
+      this._clerk.organization$,
+    ]).subscribe(async ([user, org]) => {
+      const currentUrl = this.router.url;
+
+      // Si hay sesión y está en /login o /register → redirigir al dashboard
+      if (user && (currentUrl.includes('/login') || currentUrl.includes('/register'))) {
+        this.router.navigate(['/admin/dashboard']);
+        return;
+      }
+
+      // Si el usuario está autenticado → manejamos flujo
       if (user) {
-        await this.handleUserFlow(user);
+        await this.handleUserFlow(user, org);
       }
     });
+
+    this.subscriptions.push(combinedSub);
   }
 
-  private async handleUserFlow(user: any) {
+  private async handleUserFlow(user: any, org: any) {
     const hasRegistered = localStorage.getItem('hasRegistered');
     const savedClerkId = localStorage.getItem('clerkUserId');
 
-    // ✅ Si ya se registró, no hacemos nada
-    if (hasRegistered === 'true' && savedClerkId === user.id) {
-      return;
-    }
+    // ✅ Evita duplicar registro
+    if (this.isRegistering) return;
 
-    // 🔹 Esperamos a ver si hay una organización activa en Clerk
-    this._clerk.organization$.pipe(take(1)).subscribe(async (org) => {
+    // ✅ Si ya se registró correctamente
+    if (hasRegistered === 'true' && savedClerkId === user.id) return;
+
+    // Marcamos que estamos registrando
+    this.isRegistering = true;
+
+    try {
       if (org) {
-        // ✅ Ya hay organización activa (posiblemente recién creada)
         await this.registerUserAndOrganization(user, org);
-        localStorage.setItem('hasRegistered', 'true');
-        localStorage.setItem('clerkUserId', user.id);
+        this.markRegistered(user.id);
         this.router.navigate(['/admin/dashboard']);
       } else {
-        // 🔹 Si no hay organización activa, buscamos las que el usuario ya tiene
         const memberships = await user.organizationMemberships;
 
         if (memberships && memberships.length > 0) {
-          // ✅ Usa la primera organización donde el usuario sea miembro/admin
           const orgMember = memberships[0].organization;
-          console.log('➡️ Usuario pertenece a organización existente:', orgMember);
-
           await this.registerUserAndOrganization(user, orgMember);
-          localStorage.setItem('hasRegistered', 'true');
-          localStorage.setItem('clerkUserId', user.id);
+          this.markRegistered(user.id);
           this.router.navigate(['/admin/dashboard']);
         } else {
-          // 🆕 No tiene ninguna → redirigir a crear
+          // 🆕 No tiene ninguna organización
           console.log('🆕 Usuario sin organización, redirigiendo...');
           this.router.navigate(['/create-organization']);
         }
       }
-    });
+    } finally {
+      // 🔓 Liberamos el flag después de terminar
+      this.isRegistering = false;
+    }
   }
 
   private async registerUserAndOrganization(user: any, org: any): Promise<void> {
@@ -81,7 +95,7 @@ export class App implements OnInit {
           user.primaryEmailAddress?.emailAddress ||
           user.emailAddresses[0]?.emailAddress,
         organizationName: org.name,
-        clerkOrgId: org.id, // 🔹 Agregamos el ID de la organización
+        clerkOrgId: org.id,
       };
 
       const response = await this.authService
@@ -93,5 +107,14 @@ export class App implements OnInit {
     } catch (error) {
       console.error('❌ Error registrando en backend:', error);
     }
+  }
+
+  private markRegistered(clerkId: string) {
+    localStorage.setItem('hasRegistered', 'true');
+    localStorage.setItem('clerkUserId', clerkId);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }
