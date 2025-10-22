@@ -13,11 +13,14 @@ namespace backend.Controllers
     {
         private readonly AppDbContext _db;
         private readonly OrganizationService _orgService;
+        private readonly HttpClient _httpClient;
 
-        public AuthController(AppDbContext db, OrganizationService orgService)
+
+        public AuthController(AppDbContext db, OrganizationService orgService, IHttpClientFactory httpClientFactory)
         {
             _db = db;
             _orgService = orgService;
+            _httpClient = httpClientFactory.CreateClient();
         }
 
         [HttpPost("register")]
@@ -40,7 +43,37 @@ namespace backend.Controllers
             await _db.SaveChangesAsync();
 
             // ✅ Guardar la organización usando el ID de Clerk que viene desde el front
-            await _orgService.AddOrganizationAsync(request.ClerkOrgId, request.OrganizationName, user.Id);
+            var org = await _orgService.AddOrganizationAsync(request.ClerkOrgId, request.OrganizationName, user.Id);
+
+            //enviar la plaza al backend:
+
+            try
+            {
+                var crearPlazaDto = new
+                {
+                    nombre = org.Name ?? "Plaza de prueba",
+                    rut = "12345678-9",
+                    direccion = "Av. Principal 123, Bogotá",
+                    telefono = "+57 3001234567",
+                    emailContacto = user.Email ?? "contacto@plaza.com",
+                    representanteLegal = "Juan Pérez"
+                };
+
+                // Endpoint del backend admin
+                var adminUrl = "http://host.docker.internal:8085/api/admin/plazas/public";
+
+                var response = await _httpClient.PostAsJsonAsync(adminUrl, crearPlazaDto);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Error al registrar la plaza en backend admin: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al conectar con backend admin: {ex.Message}");
+            }
+
 
             return Ok(new
             {
