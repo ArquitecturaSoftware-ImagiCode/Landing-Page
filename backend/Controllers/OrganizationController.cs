@@ -9,9 +9,9 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class OrganizationController : ControllerBase
     {
-        private readonly OrganizationService _organizationService;
+        private readonly IOrganizationService _organizationService;
 
-        public OrganizationController(OrganizationService organizationService)
+        public OrganizationController(IOrganizationService organizationService)
         {
             _organizationService = organizationService;
         }
