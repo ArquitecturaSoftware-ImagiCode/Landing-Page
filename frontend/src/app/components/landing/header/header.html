@@ -8,14 +8,24 @@
         </div>
 
         <div class="hidden md:flex items-center gap-2">
-          <a class="hidden md:flex" routerLink="/register">
-            <button class="btn bg-transparent text-green-900 border-green-900">
-              Registrar Plaza
+          <!-- Si NO está logueado -->
+          <div class="flex gap-2" *ngIf="!isLoggedIn; else loggedTpl">
+            <a class="hidden md:flex" routerLink="/register">
+              <button class="btn bg-transparent text-green-900 border-green-900">
+                Registrar Plaza
+              </button>
+            </a>
+            <a routerLink="/login">
+              <button class="btn bg-green-900 text-white">Iniciar Sesión</button>
+            </a>
+          </div>
+
+          <!-- Si está logueado -->
+          <ng-template #loggedTpl>
+            <button class="btn bg-green-900 text-white" (click)="goToDashboard()">
+              Ir al Dashboard
             </button>
-          </a>
-          <a routerLink="/login">
-            <button class="btn bg-green-900 text-white">Iniciar Sesion</button>
-          </a>
+          </ng-template>
         </div>
       </nav>
     </div>
@@ -30,7 +40,9 @@
         </div>
 
         <div>
-          <h1 class="text-4xl md:text-6xl font-semibold leading:10 md:leading-20">Construye mejor Construye mas rapido</h1>
+          <h1 class="text-4xl md:text-6xl font-semibold leading:10 md:leading-20">
+            Construye mejor Construye mas rapido
+          </h1>
           <p class="text-gray-500 mt-7">
             Impulsa tu negocio con soluciones de nueva generación que optimizan, <br />
             conectan y aceleran tu crecimiento.
@@ -49,7 +61,9 @@
                 <p class="text-xl text-gray-500">Clientes que confian</p>
               </div>
             </div>
-            <div class="hidden md:flex items-center ml-10 pl-10 border-l-4 border-l-green-900 gap-5">
+            <div
+              class="hidden md:flex items-center ml-10 pl-10 border-l-4 border-l-green-900 gap-5"
+            >
               <img src="/star.svg" alt="" />
               <div>
                 <h3 class="text-2xl font-semibold">4.5/5</h3>
