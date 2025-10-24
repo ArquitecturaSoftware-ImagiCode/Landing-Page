@@ -1,1 +1,1 @@
-export const backendUrl = "http://localhost:5165/api";
+export const backendUrl = "https://agorasoft-backend.ngrok.app/api";
