@@ -21,7 +21,7 @@ namespace backend.Controllers
         private readonly ChargeService _chargeService;
         private readonly ProductService _productService;
 
-        private readonly OrganizationService _organizationService;
+        private readonly IOrganizationService _organizationService;
 
         private readonly AppDbContext _dbContext;
 
@@ -30,7 +30,7 @@ namespace backend.Controllers
             IOptions<StripeModel> _model,
             TokenService tokenService,
             CustomerService customerService,
-            OrganizationService organizationService,
+            IOrganizationService organizationService,
             ChargeService chargeService,
             ProductService productService,
             AppDbContext dbContext)
