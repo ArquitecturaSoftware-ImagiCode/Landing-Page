@@ -29,8 +29,7 @@ builder.Services.AddScoped<ProductService>();
 
 // Inyectar servicios
 builder.Services.AddScoped<ClerkService>();
-builder.Services.AddScoped<OrganizationService>();
-builder.Services.AddScoped<OrganizationService>();
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
 
 
