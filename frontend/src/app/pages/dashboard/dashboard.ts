@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardComponent } from '../../components/dashboard/dashboard-component/dashboard-component';
 import { ClerkService } from 'ngx-clerk';
 import { HttpClient } from '@angular/common/http';
-import { backendUrl } from '../../environments/environments';
+import { environment } from '../../environments/environments';
 import { CommonModule } from '@angular/common';
 import { Check, Heart, LucideAngularModule, TriangleAlert } from 'lucide-angular';
 
@@ -37,7 +37,7 @@ export class Dashboard implements OnInit {
           console.log('🆔 Clerk Organization ID:', clerkOrgId);
 
           // 🧠 Consultar la organización en tu backend
-          this.http.get(`${backendUrl}/organization/${clerkOrgId}`).subscribe({
+          this.http.get(`${environment.apiUrl}/organization/${clerkOrgId}`).subscribe({
             next: (res) => {
               console.log('✅ Organización desde backend:', res);
               this.organization = res;

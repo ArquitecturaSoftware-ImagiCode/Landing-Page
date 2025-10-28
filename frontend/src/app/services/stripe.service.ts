@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { backendUrl } from '../environments/environments';
+import { environment } from '../environments/environments';
 
 @Injectable({ providedIn: 'root' })
 export class StripeService {
-  private apiUrl = `${backendUrl}/stripe`;
+  private apiUrl = `${environment.apiUrl}/stripe`;
 
   constructor(private http: HttpClient) {}
 
