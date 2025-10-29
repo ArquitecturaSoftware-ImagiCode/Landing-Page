@@ -1,0 +1,193 @@
+<div class="container mx-auto p-6 max-w-7xl">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-4">
+      <!-- Avatar con imagen de Clerk o placeholder -->
+      <div class="avatar" *ngIf="clerkOrganization?.imageUrl; else placeholderAvatar">
+        <div class="w-16 rounded-full ring ring-orange-500 ring-offset-2">
+          <img [src]="clerkOrganization.imageUrl" [alt]="organization?.name" />
+        </div>
+      </div>
+      <ng-template #placeholderAvatar>
+        <div class="avatar placeholder">
+          <div class="bg-orange-500 text-white rounded-full w-16">
+            <span class="text-2xl">{{ organization?.name?.charAt(0) || '?' }}</span>
+          </div>
+        </div>
+      </ng-template>
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">Panel de Administración</h1>
+        <p class="text-gray-600 mt-1">
+          <span class="font-semibold">{{ organization?.name || 'Cargando organización...' }}</span>
+        </p>
+        <p class="text-sm text-gray-500">
+          <span class="mr-4">📧 {{ organization?.owner?.email || 'N/A' }}</span>
+          <span>📅 Creada: {{ organization?.createdAt ? (organization.createdAt | date: 'dd/MM/yyyy') : 'N/A' }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center min-h-[400px]">
+    <span class="loading loading-spinner loading-lg text-orange-500"></span>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="alert alert-error">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="space-y-6">
+    
+    <!-- Subscription Status Card -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Estado de Suscripción
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="stat bg-base-200 rounded-lg">
+            <div class="stat-title">Plan Actual</div>
+            <div class="stat-value text-2xl">{{ subscriptionStatus?.planName || 'N/A' }}</div>
+          </div>
+          
+          <div class="stat bg-base-200 rounded-lg">
+            <div class="stat-title">Estado</div>
+            <div class="stat-value text-2xl">
+              <span 
+                class="badge badge-lg"
+                [ngClass]="{
+                  'badge-success': subscriptionStatus?.isActive,
+                  'badge-error': !subscriptionStatus?.isActive
+                }">
+                {{ subscriptionStatus?.isActive ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="stat bg-base-200 rounded-lg">
+            <div class="stat-title">Vence</div>
+            <div class="stat-value text-xl">
+              {{ subscriptionStatus?.expiresAt || 'N/A' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning if subscription is not active -->
+        <div *ngIf="!subscriptionStatus?.isActive" class="alert alert-warning mt-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>Tu suscripción no está activa. Algunas funciones pueden estar limitadas.</span>
+          <button class="btn btn-sm btn-primary" (click)="goToPayments()">Ir a Pagos</button>
+        </div>
+
+        <!-- Warning if expiring soon -->
+        <div *ngIf="subscriptionStatus?.isExpiringSoon && subscriptionStatus?.isActive" class="alert alert-info mt-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Tu suscripción vence pronto. Renueva para continuar disfrutando de todos los beneficios.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accesos Rápidos -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Accesos Rápidos
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a routerLink="/admin/modules" class="btn btn-outline btn-primary flex flex-col gap-2 h-auto py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            <span class="text-sm">Gestionar Módulos</span>
+          </a>
+
+          <a routerLink="/admin/users" class="btn btn-outline btn-secondary flex flex-col gap-2 h-auto py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <span class="text-sm">Administrar Usuarios</span>
+          </a>
+
+          <a routerLink="/admin/payments" class="btn btn-outline btn-accent flex flex-col gap-2 h-auto py-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="text-sm">Ver Planes y Pagos</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="card-title text-2xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            Notificaciones
+          </h2>
+          <span *ngIf="unreadCount > 0" class="badge badge-error badge-lg">
+            {{ unreadCount }} sin leer
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <div *ngFor="let notification of notifications" 
+               class="alert cursor-pointer hover:bg-base-300 transition-colors"
+               [ngClass]="{
+                 'alert-warning': notification.isImportant && !notification.isRead,
+                 'alert-info': !notification.isImportant && !notification.isRead,
+                 'bg-base-200': notification.isRead
+               }"
+               (click)="markAsRead(notification.id)">
+            <div class="flex items-start w-full">
+              <svg *ngIf="!notification.isRead" xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <svg *ngIf="notification.isRead" xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6 opacity-50" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div class="ml-3 flex-1">
+                <h3 class="font-semibold" [ngClass]="{ 'opacity-60': notification.isRead }">
+                  {{ notification.title }}
+                </h3>
+                <p class="text-sm" [ngClass]="{ 'opacity-60': notification.isRead }">
+                  {{ notification.message }}
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                  {{ notification.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="notifications.length === 0" class="text-center py-8 text-gray-500">
+          No hay notificaciones
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
