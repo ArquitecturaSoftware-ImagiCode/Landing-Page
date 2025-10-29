@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { UserButton } from '../../components/auth/user-button/user-button';
-import { Building, CircleDollarSign, LayoutDashboard, LucideAngularModule, UserIcon, UsersIcon } from 'lucide-angular';
+import { CircleDollarSign, LayoutDashboard, LucideAngularModule, UserIcon, UsersIcon } from 'lucide-angular';
 
 @Component({
   selector: 'app-admin-layout',
@@ -11,7 +11,6 @@ import { Building, CircleDollarSign, LayoutDashboard, LucideAngularModule, UserI
 })
 export class AdminLayout {
   readonly DashboardIcon = LayoutDashboard;
-  readonly BuildingIcon = Building;
   readonly MoneyIcon = CircleDollarSign;
   readonly UserIcon = UserIcon;
   readonly UsersIcon = UsersIcon;

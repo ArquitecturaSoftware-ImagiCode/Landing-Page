@@ -7,27 +7,22 @@
           <h1 class="text-3xl font-bold">AgoraSoft</h1>
         </div>
         <div class="flex flex-col gap-4 mt-5">
-          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/dashboard" routerLinkActive="bg-orange-500 text-white" [routerLinkActiveOptions]="{exact: true}">
+          <a class="bg-orange-500 text-white items-center p-3 rounded-lg flex gap-2" routerLink="/admin/dashboard">
             <lucide-angular [img]="DashboardIcon" class="my-icon size-5"></lucide-angular>
             Dashboard
           </a>
 
-          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/organization-dashboard" routerLinkActive="bg-orange-500 text-white">
-            <lucide-angular [img]="BuildingIcon" class="my-icon size-5"></lucide-angular>
-            Panel Empresa
-          </a>
-
-          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/modules" routerLinkActive="bg-orange-500 text-white">
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/modules">
             <lucide-angular [img]="UserIcon" class="my-icon size-5"></lucide-angular>
             Modulos
           </a>
 
-          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/users" routerLinkActive="bg-orange-500 text-white">
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/users">
             <lucide-angular [img]="UsersIcon" class="my-icon size-5"></lucide-angular>
             Empleados
           </a>
 
-          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/payments" routerLinkActive="bg-orange-500 text-white">
+          <a class="items-center p-3 rounded-lg flex gap-2 hover:bg-gray-200" routerLink="/admin/payments">
             <lucide-angular [img]="MoneyIcon" class="my-icon size-5"></lucide-angular>
             Planes
           </a>

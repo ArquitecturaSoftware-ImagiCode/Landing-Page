@@ -13,8 +13,7 @@ import { CreateOrgPage } from './pages/create-org-page/create-org-page';
 import { SuccessPayment } from './components/success-payment/success-payment';
 import { SucessPaymentPage } from './pages/sucess-payment-page/sucess-payment-page';
 import { CancelPaymentPage } from './pages/cancel-payment-page/cancel-payment-page';
-import { Users } from './pages/users/users';
-import { OrganizationDashboard } from './components/dashboard/organization-dashboard/organization-dashboard';
+import { UsersComponent } from './pages/users/users';
 
 export const routes: Routes = [
   { path: '', component: LandingPage },
@@ -29,10 +28,6 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: Dashboard,
-      },
-      {
-        path: 'organization-dashboard',
-        component: OrganizationDashboard,
       },
       {
         path: 'modules',
