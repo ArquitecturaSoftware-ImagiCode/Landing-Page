@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { backendUrl } from '../environments/environments';
+import { environment } from '../environments/environments';
 
 export interface RegisterRequest {
   clerkUserId: string;
@@ -22,7 +22,7 @@ export interface RegisterResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = backendUrl; // Ajusta el puerto si es diferente
+  private apiUrl = `${environment.apiUrl}`; // Ajusta el puerto si es diferente
 
   constructor(private http: HttpClient) {}
 
