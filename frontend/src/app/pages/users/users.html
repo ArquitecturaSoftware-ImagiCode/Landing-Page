@@ -18,11 +18,15 @@
         <!-- Nueva fila para registrar Worker -->
         <tr>
           <td></td>
-          <td><input type="text" [(ngModel)]="newWorker.name" placeholder="Name" class="input input-sm w-full" /></td>
-          <td><input type="text" [(ngModel)]="newWorker.role" placeholder="Role" class="input input-sm w-full" /></td>
-          <td><input type="text" [(ngModel)]="newWorker.country" placeholder="Country" class="input input-sm w-full" /></td>
-          <td><input type="number" [(ngModel)]="newWorker.numero" placeholder="Numero" class="input input-sm w-full" /></td>
-          <td><input type="email" [(ngModel)]="newWorker.correo" placeholder="Correo" class="input input-sm w-full" /></td>
+          <td><input type="text" [(ngModel)]="newWorker.name" placeholder="Name" class="input input-sm w-full" required /></td>
+          <td><select [(ngModel)]="newWorker.role" aria-placeholder="Role" class="input input-sm w-full" required>
+            <option value="" disabled selected>Selecciona Rol del Empleado</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+          </select></td>
+          <td><input type="text" [(ngModel)]="newWorker.country" placeholder="Country" class="input input-sm w-full" required/></td>
+          <td><input type="number" [(ngModel)]="newWorker.numero" placeholder="Numero" class="input input-sm w-full" required/></td>
+          <td><input type="email" [(ngModel)]="newWorker.correo" placeholder="Correo" class="input input-sm w-full" required/></td>
           <td>
             <button class="btn btn-primary btn-sm" (click)="createWorker()">Save</button>
           </td>
@@ -36,13 +40,22 @@
 
           <!-- Celdas editables -->
           <td>
-            <input *ngIf="editingIndex === i" [(ngModel)]="worker.name" class="input input-sm w-full" />
+            <input *ngIf="editingIndex === i" [(ngModel)]="worker.name" class="input input-sm w-full" required/>
             <span *ngIf="editingIndex !== i">{{ worker.name }}</span>
           </td>
           <td>
-            <input *ngIf="editingIndex === i" [(ngModel)]="worker.role" class="input input-sm w-full" />
-            <span *ngIf="editingIndex !== i">{{ worker.role }}</span>
-          </td>
+  <select
+    *ngIf="editingIndex === i"
+    [(ngModel)]="worker.role"
+    class="input input-sm w-full"
+    required
+  >
+    <option value="" disabled>Selecciona Rol del Empleado</option>
+    <option value="ADMIN">ADMIN</option>
+    <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+  </select>
+  <span *ngIf="editingIndex !== i">{{ worker.role }}</span>
+</td>
           <td>
             <input *ngIf="editingIndex === i" [(ngModel)]="worker.country" class="input input-sm w-full" />
             <span *ngIf="editingIndex !== i">{{ worker.country }}</span>
