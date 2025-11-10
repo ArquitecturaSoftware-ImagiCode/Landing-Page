@@ -40,7 +40,7 @@ export const routes: Routes = [
       },
       {
         path: "users",
-        component: Users
+        component: UsersComponent
 
       },
       {
