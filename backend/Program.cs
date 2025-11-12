@@ -6,46 +6,76 @@ using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar Stripe
+// ==========================
+// 🔐 Configuración de Stripe
+// ==========================
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
-// Configurar EF Core con PostgreSQL
+// ======================================
+// 🗄️ Configurar EF Core con PostgreSQL
+// ======================================
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// CORS para Angular
+// =====================================
+// 🌐 Configuración de CORS (Frontend)
+// =====================================
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular", p =>
-        p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    options.AddPolicy("AllowAngular", policy =>
+        policy.WithOrigins("https://agorasoftlandingqa.ngrok.app") // 👈 dominio del frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod());
 });
 
+// ======================================
+// 💳 Servicios relacionados con Stripe
+// ======================================
 builder.Services.Configure<StripeModel>(builder.Configuration.GetSection("Stripe"));
-//Stripe
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<ChargeService>();
 builder.Services.AddScoped<ProductService>();
 
-// Inyectar servicios
+// ======================================
+// ⚙️ Inyección de dependencias propias
+// ======================================
 builder.Services.AddScoped<ClerkService>();
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
-builder.Services.AddScoped<OrganizationDashboardService>();
+builder.Services.AddScoped<WorkerService>();
 
-
-
+// ======================================
+// ❤️ Health Checks y Swagger
+// ======================================
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ======================================
+// 🚀 Construcción de la aplicación
+// ======================================
 var app = builder.Build();
 
+// ======================================
+// 🧩 Middleware y pipeline
+// ======================================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// ✅ Habilitar CORS antes de controladores
 app.UseCors("AllowAngular");
+
+app.UseAuthorization();
+
+// ✅ Endpoint de verificación
+app.MapHealthChecks("/health");
+
+// ✅ Mapear controladores
 app.MapControllers();
+
+// ✅ Ejecutar aplicación
 app.Run();
