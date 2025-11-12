@@ -7,7 +7,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       # 👇 Conexión a tu base local (no al contenedor)
-      - ConnectionStrings__DefaultConnection=Host=200.3.152.101;Port=5432;Database=AgoraSoft;Username=postgres;Password=contrasena
+      - ConnectionStrings__DefaultConnection=Host=10.43.102.37;Port=5432;Database=AgoraSoft;Username=postgres;Password=contrasena
     networks:
       - backend-net
 
